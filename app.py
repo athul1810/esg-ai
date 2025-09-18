@@ -89,94 +89,111 @@ def get_clickable_name(url):
 
 
 def inject_global_styles():
-    st.markdown(
-        """
-        <style>
-            .main {
-                background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 45%);
-                padding: 0 1.5rem;
-            }
-            .block-container {
-                padding-top: 1.5rem;
-            }
-            .app-hero {
-                background: #ffffff;
-                border-radius: 18px;
-                padding: 1.8rem 2.2rem;
-                box-shadow: 0 10px 35px rgba(15, 31, 64, 0.08);
-                border: 1px solid rgba(105, 78, 214, 0.12);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 1.5rem;
-            }
-            .app-hero h1 {
-                font-family: "Inter", "Segoe UI", sans-serif;
-                font-size: 2.3rem;
-                font-weight: 700;
-                margin-bottom: 0.25rem;
-                color: #1f2333;
-            }
-            .app-hero p {
-                font-size: 1rem;
-                color: #4f5567;
-                margin: 0;
-            }
-            .metric-card {
-                background: #ffffff;
-                padding: 1.1rem 1.25rem;
-                border-radius: 14px;
-                border: 1px solid rgba(105, 78, 214, 0.12);
-                box-shadow: 0 6px 20px rgba(15, 31, 64, 0.06);
-            }
-            .metric-card h4 {
-                font-size: 0.85rem;
-                font-weight: 600;
-                letter-spacing: 0.04em;
-                text-transform: uppercase;
-                color: #5a5f73;
-                margin-bottom: 0.35rem;
-            }
-            .metric-card .metric-value {
-                font-size: 1.8rem;
-                font-weight: 700;
-                color: #181c2f;
-            }
-            .metric-card .delta-positive {
-                color: #0d7a60;
-                font-weight: 600;
-                font-size: 0.85rem;
-            }
-            .metric-card .delta-negative {
-                color: #a52b3d;
-                font-weight: 600;
-                font-size: 0.85rem;
-            }
-            .esg-section-title {
-                font-size: 1.1rem;
-                font-weight: 600;
-                color: #303750;
-                letter-spacing: 0.015em;
-                margin-top: 0.75rem;
-            }
-            .stTabs [role="tab"] {
-                border-radius: 12px 12px 0 0;
-                padding: 0.75rem 1.5rem;
-                font-weight: 600;
-                color: #5e6482;
-            }
-            .stTabs [role="tab"][aria-selected="true"] {
-                background: #ffffff;
-                color: #533fd7;
-                box-shadow: 0 -1px 12px rgba(83, 63, 215, 0.18);
-            }
-            .dataframe tbody tr th {
-                display: none;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+	st.markdown(
+		"""
+		<style>
+			:root {
+				--brand-primary: #533fd7;
+				--brand-secondary: #C137A2;
+				--text-strong: #1f2333;
+				--text-muted: #4f5567;
+				--bg-soft: #f5f6fb;
+				--card-bg: #ffffff;
+				--card-border: rgba(105, 78, 214, 0.12);
+				--shadow-1: 0 6px 20px rgba(15, 31, 64, 0.06);
+				--shadow-2: 0 10px 35px rgba(15, 31, 64, 0.08);
+			}
+
+			/* App background */
+			.main {
+				background: linear-gradient(135deg, var(--bg-soft) 0%, #ffffff 45%);
+				padding: 0 1.25rem;
+			}
+			.block-container { padding-top: 1.25rem; }
+
+			/* Sidebar */
+			section[data-testid="stSidebar"] > div {
+				background: #ffffff;
+				border-right: 1px solid var(--card-border);
+			}
+			section[data-testid="stSidebar"] .stSelectbox, 
+			section[data-testid="stSidebar"] .stMultiSelect,
+			section[data-testid="stSidebar"] .stDateInput { margin-bottom: .5rem; }
+			section[data-testid="stSidebar"] * { font-size: 0.96rem; }
+
+			/* Hero/Header */
+			.app-hero {
+				background: var(--card-bg);
+				border-radius: 18px;
+				padding: 1.6rem 2.0rem;
+				box-shadow: var(--shadow-2);
+				border: 1px solid var(--card-border);
+				display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
+			}
+			.app-hero h1 {
+				font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+				font-size: 2.2rem; font-weight: 700; color: var(--text-strong); margin: 0;
+			}
+			.app-hero p { font-size: 1rem; color: var(--text-muted); margin: 0; }
+
+			/* Tabs */
+			.stTabs [role="tab"] {
+				border-radius: 12px 12px 0 0;
+				padding: 0.65rem 1.25rem; font-weight: 600; color: #5e6482;
+			}
+			.stTabs [role="tab"][aria-selected="true"] {
+				background: #ffffff; color: var(--brand-primary);
+				box-shadow: 0 -1px 12px rgba(83, 63, 215, 0.18);
+			}
+
+			/* Cards/Metrics */
+			.metric-card {
+				background: var(--card-bg); padding: 1rem 1.15rem; border-radius: 14px;
+				border: 1px solid var(--card-border); box-shadow: var(--shadow-1);
+			}
+			.metric-card h4 {
+				font-size: 0.82rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+				color: #5a5f73; margin-bottom: .3rem;
+			}
+			.metric-card .metric-value { font-size: 1.7rem; font-weight: 700; color: #181c2f; }
+			.metric-card .delta-positive { color: #0d7a60; font-weight: 600; font-size: 0.85rem; }
+			.metric-card .delta-negative { color: #a52b3d; font-weight: 600; font-size: 0.85rem; }
+
+			/* Tables */
+			.dataframe { border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); }
+			.dataframe thead tr th { background: #fafbff; color: #555b74; font-weight: 700; }
+			.dataframe tbody tr:hover { background: #fafbff; }
+			.dataframe tbody tr th { display: none; }
+
+			/* Buttons */
+			.stButton > button {
+				background: var(--brand-primary); color: #fff; font-weight: 600;
+				border-radius: 10px; border: none; padding: .5rem .9rem; box-shadow: var(--shadow-1);
+			}
+			.stButton > button:hover { filter: brightness(1.05); }
+
+			/* Inputs */
+			.stTextInput input, .stSelectbox > div, .stMultiSelect > div, .stDateInput > div {
+				border-radius: 10px; border-color: var(--card-border);
+			}
+
+			/* Scrollbar (WebKit) */
+			::-webkit-scrollbar { height: 10px; width: 10px; }
+			::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 8px; }
+			::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+		</style>
+		""",
+		unsafe_allow_html=True,
+	)
+	# Optional footer
+	st.markdown(
+		"""
+		<div style="text-align:center; color:#8a8faa; font-size:.85rem; margin-top:1rem;">
+			ESG AI · Enhanced UI — built with Streamlit
+		</div>
+		""",
+		unsafe_allow_html=True,
+	)
 
 
 def format_metric(value, precision=1, suffix=""):
@@ -985,531 +1002,565 @@ def generate_chatbot_response(context, user_message, preferences=None):
 
     return " ".join(response_lines), evidence
 
+def inject_dark_theme():
+	st.markdown(
+		"""
+		<style>
+			:root {
+				--brand-primary: #a89cff;
+				--brand-secondary: #ff7bd7;
+				--text-strong: #e9eaf5;
+				--text-muted: #b5b9d3;
+				--bg-soft: #0f1320;
+				--card-bg: #151a2c;
+				--card-border: rgba(168, 156, 255, 0.15);
+			}
+			.main { background: linear-gradient(135deg, var(--bg-soft) 0%, #0d111c 45%); }
+			section[data-testid="stSidebar"] > div { background: #0f1320; }
+			.dataframe thead tr th { background: #11162a; }
+			.dataframe tbody tr:hover { background: #11162a; }
+			.stButton > button { box-shadow: none; }
+		</style>
+		""",
+		unsafe_allow_html=True,
+	)
+
+
 def main(start_data, end_data):
-    ###### CUSTOMIZE COLOR THEME ######
-    # Configure Altair theme
-    try:
-        # Try Altair 5+ API first
-        alt.theme.register("finastra", finastra_theme)
-        alt.theme.enable("finastra")
-    except (AttributeError, TypeError):
-        # Fallback to old Altair 4.x API
-        try:
-            alt.themes.register("finastra", finastra_theme)
-            alt.themes.enable("finastra")
-        except Exception:
-            pass
-    violet, fuchsia = ["#694ED6", "#C137A2"]
+	###### CUSTOMIZE COLOR THEME ######
+	# Configure Altair theme
+	try:
+		# Try Altair 5+ API first
+		alt.theme.register("finastra", finastra_theme)
+		alt.theme.enable("finastra")
+	except (AttributeError, TypeError):
+		# Fallback to old Altair 4.x API
+		try:
+			alt.themes.register("finastra", finastra_theme)
+			alt.themes.enable("finastra")
+		except Exception:
+			pass
+	violet, fuchsia = ["#694ED6", "#C137A2"]
 
 
-    ###### SET UP PAGE ######
-    icon_path = os.path.join(".", "raw", "esg_ai_logo.png")
-    st.set_page_config(page_title="ESG AI", page_icon=icon_path,
-                       layout='wide', initial_sidebar_state="expanded")
-    inject_global_styles()
+	###### SET UP PAGE ######
+	icon_path = os.path.join(".", "raw", "esg_ai_logo.png")
+	st.set_page_config(page_title="ESG AI", page_icon=icon_path,
+					   layout='wide', initial_sidebar_state="expanded")
+	# Sidebar theme toggle
+	with st.sidebar:
+		st.markdown("**Appearance**")
+		dark_mode = st.toggle("Dark mode", value=False, help="Switch between light and dark themes")
+	inject_global_styles()
+	if 'dark_mode' not in st.session_state:
+		st.session_state.dark_mode = dark_mode
+	else:
+		st.session_state.dark_mode = dark_mode
+	if st.session_state.dark_mode:
+		inject_dark_theme()
 
-    hero = st.container()
-    with hero:
-        col_logo, col_copy = st.columns([1, 3])
-        with col_logo:
-            st.image(icon_path, width=135)
-        with col_copy:
-            st.markdown(
-                """
-                <div class="app-hero">
-                    <div>
-                        <h1>ESG<sup>AI</sup> Intelligence Console</h1>
-                        <p>Executive-grade visibility into ESG narratives, sentiment, and peer linkages.</p>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-
-    ###### LOAD DATA ######
-    with st.spinner(text="Fetching Data..."):
-        data, companies = load_data(start_data, end_data)
-    df_conn = data["conn"]
-    df_data = data["data"]
-    embeddings = data["embed"]
-
-
-    ####### CREATE SIDEBAR CATEGORY FILTER######
-    with st.sidebar:
-        st.markdown("### Analyst Controls")
-        st.caption("Configure the ESG signals for this review.")
-        esg_categories = st.multiselect("News Categories", ["E", "S", "G"],
-                                        default=["E", "S", "G"],
-                                        help="Filter narratives by Environmental, Social and Governance tags.")
-        st.markdown("---")
-        num_neighbors = st.slider(
-            "Relationship Depth",
-            min_value=1,
-            max_value=20,
-            value=8,
-            help="Number of peer organisations highlighted in the network map.",
-        )
+	hero = st.container()
+	with hero:
+		col_logo, col_copy = st.columns([1, 3])
+		with col_logo:
+			st.image(icon_path, width=135)
+		with col_copy:
+			st.markdown(
+				"""
+				<div class="app-hero">
+					<div>
+						<h1>ESG<sup>AI</sup> Intelligence Console</h1>
+						<p>Executive-grade visibility into ESG narratives, sentiment, and peer linkages.</p>
+					</div>
+				</div>
+				""",
+				unsafe_allow_html=True,
+			)
 
 
+	###### LOAD DATA ######
+	with st.spinner(text="Fetching Data..."):
+		data, companies = load_data(start_data, end_data)
+	df_conn = data["conn"]
+	df_data = data["data"]
+	embeddings = data["embed"]
+
+
+	###### CREATE SIDEBAR CATEGORY FILTER######
+	with st.sidebar:
+		st.markdown("### Analyst Controls")
+		st.caption("Configure the ESG signals for this review.")
+		esg_categories = st.multiselect("News Categories", ["E", "S", "G"],
+										default=["E", "S", "G"],
+										help="Filter narratives by Environmental, Social and Governance tags.")
+		st.markdown("---")
+		num_neighbors = st.slider(
+			"Relationship Depth",
+			min_value=1,
+			max_value=20,
+			value=8,
+			help="Number of peer organisations highlighted in the network map.",
+		)
 
 
 
-    ###### RUN COMPUTATIONS WHEN A COMPANY IS SELECTED ######
-    company = st.selectbox(
-        "Select a company to analyze",
-        companies,
-        help="Start typing to search across covered organisations.",
-    )
 
-    if company and company != "Select a Company":
-        df_company = df_data[df_data.Organization == company]
-        if df_company.empty:
-            st.warning("No coverage available for the selected company.")
-            return
 
-        diff_col = f"{company.replace(' ', '_')}_diff"
-        esg_keys = ["E_score", "S_score", "G_score"]
-        esg_df = get_melted_frame(data, esg_keys, keepcol=diff_col)
-        ind_esg_df = get_melted_frame(data, esg_keys, dropcol="industry_tone")
-        tone_df = get_melted_frame(data, ["overall_score"], keepcol=diff_col)
-        ind_tone_df = get_melted_frame(data, ["overall_score"],
-                                       dropcol="industry_tone")
+	###### RUN COMPUTATIONS WHEN A COMPANY IS SELECTED ######
+	company = st.selectbox(
+		"Select a company to analyze",
+		companies,
+		help="Start typing to search across covered organisations.",
+	)
 
-        start = pd.to_datetime(df_company.DATE.min()).date()
-        end = pd.to_datetime(df_company.DATE.max()).date()
-        selected_dates = st.sidebar.date_input(
-            "Date range",
-            value=(start, end),
-            min_value=start,
-            max_value=end,
-            help="Focus the analysis on a specific reporting period.",
-        )
-        if isinstance(selected_dates, tuple):
-            start, end = selected_dates
-        else:
-            start, end = selected_dates, selected_dates
+	if company and company != "Select a Company":
+		df_company = df_data[df_data.Organization == company]
+		if df_company.empty:
+			st.warning("No coverage available for the selected company.")
+			return
 
-        df_company = filter_company_data(df_company, esg_categories, start, end)
-        esg_df = filter_on_date(esg_df, start, end)
-        ind_esg_df = filter_on_date(ind_esg_df, start, end)
-        tone_df = filter_on_date(tone_df, start, end)
-        ind_tone_df = filter_on_date(ind_tone_df, start, end)
-        market_scope = filter_on_date(df_data, start, end)
-        date_filtered = filter_company_data(market_scope, esg_categories, start, end)
+		diff_col = f"{company.replace(' ', '_')}_diff"
+		esg_keys = ["E_score", "S_score", "G_score"]
+		esg_df = get_melted_frame(data, esg_keys, keepcol=diff_col)
+		ind_esg_df = get_melted_frame(data, esg_keys, dropcol="industry_tone")
+		tone_df = get_melted_frame(data, ["overall_score"], keepcol=diff_col)
+		ind_tone_df = get_melted_frame(data, ["overall_score"],
+									   dropcol="industry_tone")
 
-        publishers = df_company.SourceCommonName.sort_values().unique().tolist()
-        publishers.insert(0, "all")
-        publisher = st.sidebar.selectbox(
-            "Publisher",
-            publishers,
-            help="Drill into narratives from a single outlet.",
-        )
-        df_company = filter_publisher(df_company, publisher)
+		start = pd.to_datetime(df_company.DATE.min()).date()
+		end = pd.to_datetime(df_company.DATE.max()).date()
+		selected_dates = st.sidebar.date_input(
+			"Date range",
+			value=(start, end),
+			min_value=start,
+			max_value=end,
+			help="Focus the analysis on a specific reporting period.",
+		)
+		if isinstance(selected_dates, tuple):
+			start, end = selected_dates
+		else:
+			start, end = selected_dates, selected_dates
 
-        if df_company.empty:
-            st.warning("No articles match the selected filters.")
-            return
+		df_company = filter_company_data(df_company, esg_categories, start, end)
+		esg_df = filter_on_date(esg_df, start, end)
+		ind_esg_df = filter_on_date(ind_esg_df, start, end)
+		tone_df = filter_on_date(tone_df, start, end)
+		ind_tone_df = filter_on_date(ind_tone_df, start, end)
+		market_scope = filter_on_date(df_data, start, end)
+		date_filtered = filter_company_data(market_scope, esg_categories, start, end)
 
-        summary = build_company_summary(df_company)
-        st.markdown(
-            f"<p class='esg-section-title'>Narrative summary for <strong>{company}</strong> · "
-            f"{pd.to_datetime(start).strftime('%b %d, %Y')} — {pd.to_datetime(end).strftime('%b %d, %Y')}</p>",
-            unsafe_allow_html=True,
-        )
-        render_metrics(summary)
+		publishers = df_company.SourceCommonName.sort_values().unique().tolist()
+		publishers.insert(0, "all")
+		publisher = st.sidebar.selectbox(
+			"Publisher",
+			publishers,
+			help="Drill into narratives from a single outlet.",
+		)
+		df_company = filter_publisher(df_company, publisher)
 
-        analysis_context = build_company_context(
-            company,
-            df_company,
-            date_filtered,
-            data,
-            start,
-            end,
-        )
+		if df_company.empty:
+			st.warning("No articles match the selected filters.")
+			return
 
-        overview_tab, insight_tab, library_tab, network_tab, report_tab, ai_tab = st.tabs(
-            ["Overview", "Insights", "Source Library", "Connections", "Insight Report", "AI Summarizer"]
-        )
+		summary = build_company_summary(df_company)
+		st.markdown(
+			f"<p class='esg-section-title'>Narrative summary for <strong>{company}</strong> · "
+			f"{pd.to_datetime(start).strftime('%b %d, %Y')} — {pd.to_datetime(end).strftime('%b %d, %Y')}</p>",
+			unsafe_allow_html=True,
+		)
+		render_metrics(summary)
 
-        with overview_tab:
-            st.markdown("### Trend intelligence")
-            selector_col, chart_col = st.columns((1, 3))
-            metric_options = [
-                "Tone",
-                "NegativeTone",
-                "PositiveTone",
-                "Polarity",
-                "ActivityDensity",
-                "WordCount",
-                "Overall Score",
-                "ESG Scores",
-            ]
-            line_metric = selector_col.radio("Choose metric", options=metric_options)
+		analysis_context = build_company_context(
+			company,
+			df_company,
+			date_filtered,
+			data,
+			start,
+			end,
+		)
 
-            if line_metric == "ESG Scores":
-                esg_df["WHO"] = company.title()
-                ind_esg_df["WHO"] = "Industry Average"
-                esg_plot_df = pd.concat([esg_df, ind_esg_df]).reset_index(drop=True)
-                esg_plot_df.replace({
-                    "E_score": "Environment",
-                    "S_score": "Social",
-                    "G_score": "Governance",
-                }, inplace=True)
+		overview_tab, insight_tab, library_tab, network_tab, report_tab, ai_tab = st.tabs(
+			["Overview", "Insights", "Source Library", "Connections", "Insight Report", "AI Summarizer"]
+		)
 
-                metric_chart = alt.Chart(esg_plot_df, title="Trends Over Time").mark_line().encode(
-                    x=alt.X("yearmonthdate(DATE):O", title="DATE"),
-                    y=alt.Y("Score:Q"),
-                    color=alt.Color("ESG", sort=None, legend=alt.Legend(title=None, orient="top")),
-                    strokeDash=alt.StrokeDash(
-                        "WHO",
-                        sort=None,
-                        legend=alt.Legend(
-                            title=None,
-                            symbolType="stroke",
-                            symbolFillColor="gray",
-                            symbolStrokeWidth=4,
-                            orient="top",
-                        ),
-                    ),
-                    tooltip=["DATE", "ESG", alt.Tooltip("Score", format=".5f")],
-                )
-            else:
-                if line_metric == "Overall Score":
-                    metric_col = "Score"
-                    tone_df["WHO"] = company.title()
-                    ind_tone_df["WHO"] = "Industry Average"
-                    plot_df = pd.concat([tone_df, ind_tone_df]).reset_index(drop=True)
-                else:
-                    metric_col = line_metric
-                    df1 = df_company.groupby("DATE")[metric_col].mean().reset_index()
-                    df2 = filter_on_date(
-                        df_data.groupby("DATE")[metric_col].mean().reset_index(), start, end
-                    )
-                    df1["WHO"] = company.title()
-                    df2["WHO"] = "Industry Average"
-                    plot_df = pd.concat([df1, df2]).reset_index(drop=True)
+		with overview_tab:
+			st.markdown("### Trend intelligence")
+			selector_col, chart_col = st.columns((1, 3))
+			metric_options = [
+				"Tone",
+				"NegativeTone",
+				"PositiveTone",
+				"Polarity",
+				"ActivityDensity",
+				"WordCount",
+				"Overall Score",
+				"ESG Scores",
+			]
+			line_metric = selector_col.radio("Choose metric", options=metric_options)
 
-                metric_chart = alt.Chart(plot_df, title="Trends Over Time").mark_line().encode(
-                    x=alt.X("yearmonthdate(DATE):O", title="DATE"),
-                    y=alt.Y(f"{metric_col}:Q", scale=alt.Scale(type="linear")),
-                    color=alt.Color("WHO", legend=None),
-                    strokeDash=alt.StrokeDash(
-                        "WHO",
-                        sort=None,
-                        legend=alt.Legend(
-                            title=None,
-                            symbolType="stroke",
-                            symbolFillColor="gray",
-                            symbolStrokeWidth=4,
-                            orient="top",
-                        ),
-                    ),
-                    tooltip=["DATE", alt.Tooltip(metric_col, format=".3f")],
-                )
+			if line_metric == "ESG Scores":
+				esg_df["WHO"] = company.title()
+				ind_esg_df["WHO"] = "Industry Average"
+				esg_plot_df = pd.concat([esg_df, ind_esg_df]).reset_index(drop=True)
+				esg_plot_df.replace({
+					"E_score": "Environment",
+					"S_score": "Social",
+					"G_score": "Governance",
+				}, inplace=True)
 
-            metric_chart = metric_chart.properties(height=340, width=200).interactive()
-            chart_col.altair_chart(metric_chart, use_container_width=True)
+				metric_chart = alt.Chart(esg_plot_df, title="Trends Over Time").mark_line().encode(
+					x=alt.X("yearmonthdate(DATE):O", title="DATE"),
+					y=alt.Y("Score:Q"),
+					color=alt.Color("ESG", sort=None, legend=alt.Legend(title=None, orient="top")),
+					strokeDash=alt.StrokeDash(
+						"WHO",
+						sort=None,
+						legend=alt.Legend(
+							title=None,
+							symbolType="stroke",
+							symbolFillColor="gray",
+							symbolStrokeWidth=4,
+							orient="top",
+						),
+					),
+					tooltip=["DATE", "ESG", alt.Tooltip("Score", format=".5f")],
+				)
+			else:
+				if line_metric == "Overall Score":
+					metric_col = "Score"
+					tone_df["WHO"] = company.title()
+					ind_tone_df["WHO"] = "Industry Average"
+					plot_df = pd.concat([tone_df, ind_tone_df]).reset_index(drop=True)
+				else:
+					metric_col = line_metric
+					df1 = df_company.groupby("DATE")[metric_col].mean().reset_index()
+					df2 = filter_on_date(
+						df_data.groupby("DATE")[metric_col].mean().reset_index(), start, end
+					)
+					df1["WHO"] = company.title()
+					df2["WHO"] = "Industry Average"
+					plot_df = pd.concat([df1, df2]).reset_index(drop=True)
 
-            radar_col, dist_col = st.columns(2)
-            with radar_col:
-                avg_esg = data["ESG"].copy()
-                avg_esg.rename(columns={"Unnamed: 0": "Type"}, inplace=True)
-                avg_esg.replace({"T": "Overall", "E": "Environment", "S": "Social", "G": "Governance"}, inplace=True)
-                numeric_cols = avg_esg.select_dtypes(include=[np.number]).columns
-                avg_esg["Industry Average"] = avg_esg[numeric_cols].mean(axis=1)
-                radar_df = avg_esg[["Type", company, "Industry Average"]].melt(
-                    "Type", value_name="score", var_name="entity"
-                )
-                radar = px.line_polar(
-                    radar_df,
-                    r="score",
-                    theta="Type",
-                    color="entity",
-                    line_close=True,
-                    hover_name="Type",
-                    hover_data={"Type": True, "entity": True, "score": ":.2f"},
-                    color_discrete_map={"Industry Average": fuchsia, company: violet},
-                )
-                radar.update_layout(
-                    template=None,
-                    polar={
-                        "radialaxis": {"showticklabels": False, "ticks": ""},
-                        "angularaxis": {"showticklabels": False, "ticks": ""},
-                    },
-                    legend={"title": None, "orientation": "h", "yanchor": "bottom"},
-                    margin={"l": 5, "r": 5, "t": 35, "b": 5},
-                )
-                st.plotly_chart(radar, use_container_width=True)
+				metric_chart = alt.Chart(plot_df, title="Trends Over Time").mark_line().encode(
+					x=alt.X("yearmonthdate(DATE):O", title="DATE"),
+					y=alt.Y(f"{metric_col}:Q", scale=alt.Scale(type="linear")),
+					color=alt.Color("WHO", legend=None),
+					strokeDash=alt.StrokeDash(
+						"WHO",
+						sort=None,
+						legend=alt.Legend(
+							title=None,
+							symbolType="stroke",
+							symbolFillColor="gray",
+							symbolStrokeWidth=4,
+							orient="top",
+						),
+					),
+					tooltip=["DATE", alt.Tooltip(metric_col, format=".3f")],
+				)
 
-            with dist_col:
-                dist_chart = (
-                    alt.Chart(df_company, title="Document Tone Distribution")
-                    .transform_density(density="Tone", as_=["Tone", "density"])
-                    .mark_area(opacity=0.55, color="#694ED6")
-                    .encode(
-                        x=alt.X("Tone:Q", scale=alt.Scale(domain=(-10, 10))),
-                        y="density:Q",
-                        tooltip=[
-                            alt.Tooltip("Tone", format=".3f"),
-                            alt.Tooltip("density:Q", format=".4f"),
-                        ],
-                    )
-                    .properties(height=300)
-                    .interactive()
-                )
-                st.altair_chart(dist_chart, use_container_width=True)
+			metric_chart = metric_chart.properties(height=340, width=200).interactive()
+			chart_col.altair_chart(metric_chart, use_container_width=True)
 
-        with insight_tab:
-            st.markdown("### Article-level signals")
-            scatter = (
-                alt.Chart(df_company, title="Article Tone")
-                .mark_circle()
-                .encode(
-                    x="NegativeTone:Q",
-                    y="PositiveTone:Q",
-                    size="WordCount:Q",
-                    color=alt.Color("Polarity:Q", scale=alt.Scale()),
-                    tooltip=[
-                        alt.Tooltip("Polarity", format=".3f"),
-                        alt.Tooltip("NegativeTone", format=".3f"),
-                        alt.Tooltip("PositiveTone", format=".3f"),
-                        alt.Tooltip("DATE"),
-                        alt.Tooltip("WordCount", format=",d"),
-                        alt.Tooltip("SourceCommonName", title="Site"),
-                    ],
-                )
-                .properties(height=450)
-                .interactive()
-            )
-            st.altair_chart(scatter, use_container_width=True)
+			radar_col, dist_col = st.columns(2)
+			with radar_col:
+				avg_esg = data["ESG"].copy()
+				avg_esg.rename(columns={"Unnamed: 0": "Type"}, inplace=True)
+				avg_esg.replace({"T": "Overall", "E": "Environment", "S": "Social", "G": "Governance"}, inplace=True)
+				numeric_cols = avg_esg.select_dtypes(include=[np.number]).columns
+				avg_esg["Industry Average"] = avg_esg[numeric_cols].mean(axis=1)
+				radar_df = avg_esg[["Type", company, "Industry Average"]].melt(
+					"Type", value_name="score", var_name="entity"
+				)
+				radar = px.line_polar(
+					radar_df,
+					r="score",
+					theta="Type",
+					color="entity",
+					line_close=True,
+					hover_name="Type",
+					hover_data={"Type": True, "entity": True, "score": ":.2f"},
+					color_discrete_map={"Industry Average": fuchsia, company: violet},
+				)
+				radar.update_layout(
+					template=None,
+					polar={
+						"radialaxis": {"showticklabels": False, "ticks": ""},
+						"angularaxis": {"showticklabels": False, "ticks": ""},
+					},
+					legend={"title": None, "orientation": "h", "yanchor": "bottom"},
+					margin={"l": 5, "r": 5, "t": 35, "b": 5},
+				)
+				st.plotly_chart(radar, use_container_width=True)
 
-        with library_tab:
-            st.markdown("### Coverage detail")
-            display_cols = [
-                "DATE",
-                "SourceCommonName",
-                "Tone",
-                "Polarity",
-                "NegativeTone",
-                "PositiveTone",
-            ]
-            st.dataframe(
-                df_company[display_cols].sort_values("DATE", ascending=False),
-                use_container_width=True,
-            )
-            st.markdown("#### Featured articles")
-            link_df = df_company[["DATE", "URL"]].head(3).copy()
-            link_df["ARTICLE"] = link_df.URL.apply(get_clickable_name)
-            st.markdown(link_df[["DATE", "ARTICLE"]].to_markdown(index=False))
+			with dist_col:
+				dist_chart = (
+					alt.Chart(df_company, title="Document Tone Distribution")
+					.transform_density(density="Tone", as_=["Tone", "density"])
+					.mark_area(opacity=0.55, color="#694ED6")
+					.encode(
+						x=alt.X("Tone:Q", scale=alt.Scale(domain=(-10, 10))),
+						y="density:Q",
+						tooltip=[
+							alt.Tooltip("Tone", format=".3f"),
+							alt.Tooltip("density:Q", format=".4f"),
+						],
+					)
+					.properties(height=300)
+					.interactive()
+				)
+				st.altair_chart(dist_chart, use_container_width=True)
 
-        with network_tab:
-            neighbor_cols = [f"n{i}_rec" for i in range(num_neighbors)]
-            company_df = df_conn[df_conn.company == company]
-            if company_df.empty:
-                st.warning("No connection data available for this company.")
-            else:
-                neighbors = company_df[neighbor_cols].iloc[0]
-                overlays = embeddings.copy()
-                color_f = lambda f: (
-                    f"Company: {company.title()}"
-                    if f == company
-                    else ("Connected Company" if f in neighbors.values else "Other Company")
-                )
-                overlays["colorCode"] = overlays.company.apply(color_f)
-                point_colors = {
-                    company: violet,
-                    "Connected Company": fuchsia,
-                    "Other Company": "lightgrey",
-                }
-                fig_3d = px.scatter_3d(
-                    overlays,
-                    x="0",
-                    y="1",
-                    z="2",
-                    color="colorCode",
-                    color_discrete_map=point_colors,
-                    opacity=0.4,
-                    hover_name="company",
-                    hover_data={c: False for c in overlays.columns},
-                )
-                fig_3d.update_layout(
-                    legend={"orientation": "h", "yanchor": "bottom", "title": None},
-                    margin={"l": 0, "r": 0, "t": 0, "b": 0},
-                )
-                st.plotly_chart(fig_3d, use_container_width=True)
+		with insight_tab:
+			st.markdown("### Article-level signals")
+			scatter = (
+				alt.Chart(df_company, title="Article Tone")
+				.mark_circle()
+				.encode(
+					x="NegativeTone:Q",
+					y="PositiveTone:Q",
+					size="WordCount:Q",
+					color=alt.Color("Polarity:Q", scale=alt.Scale()),
+					tooltip=[
+						alt.Tooltip("Polarity", format=".3f"),
+						alt.Tooltip("NegativeTone", format=".3f"),
+						alt.Tooltip("PositiveTone", format=".3f"),
+						alt.Tooltip("DATE"),
+						alt.Tooltip("WordCount", format=",d"),
+						alt.Tooltip("SourceCommonName", title="Site"),
+					],
+				)
+				.properties(height=450)
+				.interactive()
+			)
+			st.altair_chart(scatter, use_container_width=True)
 
-                conf_cols = [f"n{i}_conf" for i in range(num_neighbors)]
-                neighbor_conf = pd.DataFrame(
-                    {
-                        "Neighbor": neighbors,
-                        "Confidence": company_df[conf_cols].values[0],
-                    }
-                )
-                conf_plot = (
-                    alt.Chart(neighbor_conf, title="Connected companies")
-                    .mark_bar()
-                    .encode(
-                        x="Confidence:Q",
-                        y=alt.Y("Neighbor:N", sort="-x"),
-                        tooltip=[
-                            "Neighbor",
-                            alt.Tooltip("Confidence", format=".3f"),
-                        ],
-                        color=alt.Color("Confidence:Q", scale=alt.Scale(), legend=None),
-                    )
-                    .properties(height=25 * num_neighbors + 100)
-                    .configure_axis(grid=False)
-                )
-                st.altair_chart(conf_plot, use_container_width=True)
+		with library_tab:
+			st.markdown("### Coverage detail")
+			display_cols = [
+				"DATE",
+				"SourceCommonName",
+				"Tone",
+				"Polarity",
+				"NegativeTone",
+				"PositiveTone",
+			]
+			st.dataframe(
+				df_company[display_cols].sort_values("DATE", ascending=False),
+				use_container_width=True,
+			)
+			st.markdown("#### Featured articles")
+			link_df = df_company[["DATE", "URL"]].head(3).copy()
+			link_df["ARTICLE"] = link_df.URL.apply(get_clickable_name)
+			st.markdown(link_df[["DATE", "ARTICLE"]].to_markdown(index=False))
 
-        with report_tab:
-            st.markdown("### ESG Insight Report")
+		with network_tab:
+			neighbor_cols = [f"n{i}_rec" for i in range(num_neighbors)]
+			company_df = df_conn[df_conn.company == company]
+			if company_df.empty:
+				st.warning("No connection data available for this company.")
+			else:
+				neighbors = company_df[neighbor_cols].iloc[0]
+				overlays = embeddings.copy()
+				color_f = lambda f: (
+					f"Company: {company.title()}"
+					if f == company
+					else ("Connected Company" if f in neighbors.values else "Other Company")
+				)
+				overlays["colorCode"] = overlays.company.apply(color_f)
+				point_colors = {
+					company: violet,
+					"Connected Company": fuchsia,
+					"Other Company": "lightgrey",
+				}
+				fig_3d = px.scatter_3d(
+					overlays,
+					x="0",
+					y="1",
+					z="2",
+					color="colorCode",
+					color_discrete_map=point_colors,
+					opacity=0.4,
+					hover_name="company",
+					hover_data={c: False for c in overlays.columns},
+				)
+				fig_3d.update_layout(
+					legend={"orientation": "h", "yanchor": "bottom", "title": None},
+					margin={"l": 0, "r": 0, "t": 0, "b": 0},
+				)
+				st.plotly_chart(fig_3d, use_container_width=True)
 
-            exec_summary = generate_executive_summary(analysis_context)
-            st.markdown("#### Executive Summary")
-            st.markdown(exec_summary)
+				conf_cols = [f"n{i}_conf" for i in range(num_neighbors)]
+				neighbor_conf = pd.DataFrame(
+					{
+						"Neighbor": neighbors,
+						"Confidence": company_df[conf_cols].values[0],
+					}
+				)
+				conf_plot = (
+					alt.Chart(neighbor_conf, title="Connected companies")
+					.mark_bar()
+					.encode(
+						x="Confidence:Q",
+						y=alt.Y("Neighbor:N", sort="-x"),
+						tooltip=[
+							"Neighbor",
+							alt.Tooltip("Confidence", format=".3f"),
+						],
+						color=alt.Color("Confidence:Q", scale=alt.Scale(), legend=None),
+					)
+					.properties(height=25 * num_neighbors + 100)
+					.configure_axis(grid=False)
+				)
+				st.altair_chart(conf_plot, use_container_width=True)
 
-            st.divider()
-            st.markdown("#### Key Metrics Breakdown")
-            for metric, description in METRIC_DEFINITIONS.items():
-                st.markdown(f"- **{metric}**: {description}", unsafe_allow_html=True)
+		with report_tab:
+			st.markdown("### ESG Insight Report")
 
-            st.divider()
-            st.markdown("#### Trends and Insights")
-            tone_chart = build_tone_trend_chart(analysis_context, date_filtered)
-            distribution_chart = build_tone_distribution_chart(df_company)
-            chart_col1, chart_col2 = st.columns(2)
-            with chart_col1:
-                if tone_chart is not None:
-                    st.altair_chart(tone_chart, use_container_width=True)
-                    st.caption("Tone trend benchmarked against industry average.")
-                else:
-                    st.info("Insufficient data to plot tone trend.")
-            with chart_col2:
-                if distribution_chart is not None:
-                    st.altair_chart(distribution_chart, use_container_width=True)
-                    st.caption("Distribution of article tone scores for the selected period.")
-                else:
-                    st.info("Insufficient data to plot tone distribution.")
+			exec_summary = generate_executive_summary(analysis_context)
+			st.markdown("#### Executive Summary")
+			st.markdown(exec_summary)
 
-            trend_points = generate_trend_narrative(analysis_context, df_company)
-            for point in trend_points:
-                st.markdown(f"- {point}")
+			st.divider()
+			st.markdown("#### Key Metrics Breakdown")
+			for metric, description in METRIC_DEFINITIONS.items():
+				st.markdown(f"- **{metric}**: {description}", unsafe_allow_html=True)
 
-            st.divider()
-            st.markdown("#### Industry Comparison")
-            comparison_table = build_industry_comparison_table(analysis_context)
-            if not comparison_table.empty:
-                st.table(comparison_table)
-            else:
-                st.info("No benchmark data available for the selected view.")
+			st.divider()
+			st.markdown("#### Trends and Insights")
+			tone_chart = build_tone_trend_chart(analysis_context, date_filtered)
+			distribution_chart = build_tone_distribution_chart(df_company)
+			chart_col1, chart_col2 = st.columns(2)
+			with chart_col1:
+				if tone_chart is not None:
+					st.altair_chart(tone_chart, use_container_width=True)
+					st.caption("Tone trend benchmarked against industry average.")
+				else:
+					st.info("Insufficient data to plot tone trend.")
+			with chart_col2:
+				if distribution_chart is not None:
+					st.altair_chart(distribution_chart, use_container_width=True)
+					st.caption("Distribution of article tone scores for the selected period.")
+				else:
+					st.info("Insufficient data to plot tone distribution.")
 
-            st.divider()
-            st.markdown("#### Actionable Insights and Recommendations")
-            for action in generate_actionable_insights(analysis_context):
-                st.markdown(f"- {action}")
+			trend_points = generate_trend_narrative(analysis_context, df_company)
+			for point in trend_points:
+				st.markdown(f"- {point}")
 
-            st.divider()
-            st.markdown("#### Conclusion")
-            st.markdown(generate_conclusion(analysis_context))
+			st.divider()
+			st.markdown("#### Industry Comparison")
+			comparison_table = build_industry_comparison_table(analysis_context)
+			if not comparison_table.empty:
+				st.table(comparison_table)
+			else:
+				st.info("No benchmark data available for the selected view.")
 
-        with ai_tab:
-            st.markdown("### Analyst Intelligence Workspace")
-            st.caption(
-                "Ask questions of the filtered ESG coverage or paste external passages for summarisation."
-            )
+			st.divider()
+			st.markdown("#### Actionable Insights and Recommendations")
+			for action in generate_actionable_insights(analysis_context):
+				st.markdown(f"- {action}")
 
-            st.markdown("#### Ask this dataset")
-            dataset_question = st.text_area(
-                "Question to ESG<sup>AI</sup>",
-                height=135,
-                placeholder="e.g. How has sentiment shifted? Which outlets are most critical?",
-                key="dataset_question",
-                help="Questions draw on the articles and ESG benchmarks currently in view.",
-            )
-            ask_button = st.button(
-                "Answer from current coverage",
-                key="qa_button",
-                use_container_width=True,
-            )
+			st.divider()
+			st.markdown("#### Conclusion")
+			st.markdown(generate_conclusion(analysis_context))
 
-            if ask_button:
-                qa_result = answer_company_question(dataset_question, analysis_context)
-                status = qa_result.get("status")
-                if status == "ok":
-                    st.success(qa_result.get("answer", ""))
-                    if qa_result.get("insights"):
-                        st.markdown("**Key datapoints**")
-                        for bullet in qa_result["insights"]:
-                            st.markdown(f"- {bullet}")
-                    if qa_result.get("evidence"):
-                        st.markdown("**Supporting coverage**")
-                        for line in qa_result["evidence"]:
-                            if line.startswith("-"):
-                                st.markdown(line)
-                            else:
-                                st.markdown(f"*{line}*")
-                elif status == "info":
-                    st.info(qa_result.get("message", ""))
-                else:
-                    st.warning(qa_result.get("message", ""))
+		with ai_tab:
+			st.markdown("### Analyst Intelligence Workspace")
+			st.caption(
+				"Ask questions of the filtered ESG coverage or paste external passages for summarisation."
+			)
 
-            st.markdown("#### Investment advisor")
-            pref_col1, pref_col2 = st.columns((2, 1))
-            with pref_col1:
-                investment_prompt = st.text_area(
-                    "Ask for investment guidance",
-                    height=120,
-                    placeholder="e.g. Should I consider investing now?",
-                    key="investment_prompt",
-                )
-            with pref_col2:
-                investor_profile = st.text_input(
-                    "Risk appetite or preferences (optional)",
-                    placeholder="e.g. low-risk income focus",
-                    key="investment_preferences",
-                )
-                get_advice = st.button(
-                    "Generate advice",
-                    key="advice_button",
-                    use_container_width=True,
-                )
+			st.markdown("#### Ask this dataset")
+			dataset_question = st.text_area(
+				"Question to ESG<sup>AI</sup>",
+				height=135,
+				placeholder="e.g. How has sentiment shifted? Which outlets are most critical?",
+				key="dataset_question",
+				help="Questions draw on the articles and ESG benchmarks currently in view.",
+			)
+			ask_button = st.button(
+				"Answer from current coverage",
+				key="qa_button",
+				use_container_width=True,
+			)
 
-            if get_advice:
-                advice, evidence = generate_chatbot_response(
-                    analysis_context,
-                    investment_prompt,
-                    preferences=investor_profile,
-                )
-                st.markdown(advice, unsafe_allow_html=True)
-                if evidence:
-                    st.markdown("**Key data points**")
-                    for item in evidence:
-                        st.markdown(f"- {item}")
-                else:
-                    st.caption("No supporting metrics available for this request.")
-    else:
-        st.info("Select a company from the drop-down to launch the ESG briefing.")
+			if ask_button:
+				qa_result = answer_company_question(dataset_question, analysis_context)
+				status = qa_result.get("status")
+				if status == "ok":
+					st.success(qa_result.get("answer", ""))
+					if qa_result.get("insights"):
+						st.markdown("**Key datapoints**")
+						for bullet in qa_result["insights"]:
+							st.markdown(f"- {bullet}")
+					if qa_result.get("evidence"):
+						st.markdown("**Supporting coverage**")
+						for line in qa_result["evidence"]:
+							if line.startswith("-"):
+								st.markdown(line)
+							else:
+								st.markdown(f"*{line}*")
+				elif status == "info":
+					st.info(qa_result.get("message", ""))
+				else:
+					st.warning(qa_result.get("message", ""))
+
+			st.markdown("#### Investment advisor")
+			pref_col1, pref_col2 = st.columns((2, 1))
+			with pref_col1:
+				investment_prompt = st.text_area(
+					"Ask for investment guidance",
+					height=120,
+					placeholder="e.g. Should I consider investing now?",
+					key="investment_prompt",
+				)
+			with pref_col2:
+				investor_profile = st.text_input(
+					"Risk appetite or preferences (optional)",
+					placeholder="e.g. low-risk income focus",
+					key="investment_preferences",
+				)
+				get_advice = st.button(
+					"Generate advice",
+					key="advice_button",
+					use_container_width=True,
+				)
+
+			if get_advice:
+				advice, evidence = generate_chatbot_response(
+					analysis_context,
+					investment_prompt,
+					preferences=investor_profile,
+				)
+				st.markdown(advice, unsafe_allow_html=True)
+				if evidence:
+					st.markdown("**Key data points**")
+					for item in evidence:
+						st.markdown(f"- {item}")
+				else:
+					st.caption("No supporting metrics available for this request.")
+	else:
+		st.info("Select a company from the drop-down to launch the ESG briefing.")
 
 
 if __name__ == "__main__":
-    args = sys.argv
-    if len(args) != 3:
-        start_data = "dec30"
-        end_data = "jan12"
-    else:
-        start_data = args[1]
-        end_data = args[2]
+	args = sys.argv
+	if len(args) != 3:
+		start_data = "dec30"
+		end_data = "jan12"
+	else:
+		start_data = args[1]
+		end_data = args[2]
 
-    if f"{start_data}_to_{end_data}" not in os.listdir("Data"):
-        print(f"There isn't data for {dir_name}")
-        raise NameError(f"Please pick from {os.listdir('Data')}")
-        sys.exit()
-        st.stop()
-    else:
-        main(start_data, end_data)
-    alt.themes.enable("default")
+	if f"{start_data}_to_{end_data}" not in os.listdir("Data"):
+		print(f"There isn't data for {dir_name}")
+		raise NameError(f"Please pick from {os.listdir('Data')}")
+		sys.exit()
+		st.stop()
+	else:
+		main(start_data, end_data)
+	alt.themes.enable("default")
 
 
 # one_month, ten_days
