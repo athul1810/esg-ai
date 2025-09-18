@@ -1,0 +1,18 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Envs
+.venv/
+venv/
+
+# OS
+.DS_Store
+
+# Large assets
+raw/**
+*.gif
+*.png
+*.mov
+*.mp4
+*.pdf
