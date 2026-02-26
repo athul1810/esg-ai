@@ -1,0 +1,29 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Envs
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+
+# Large assets
+Data/dec30_to_jan12/data_as_csv.csv
+Data/synthetic_2021_to_now/
+raw/esg_ai_logo.png
+Data/synthetic2021_to_synthetic2025
+*.gif
+*.mov
+*.mp4
+*.pdf
+
+# Local storage
+storage/*.db
+
+# Logs
+*.log
+snapshots/
+storage/
