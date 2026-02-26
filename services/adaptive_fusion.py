@@ -14,10 +14,11 @@ class AdaptiveFusionEngine:
         self.gamma = gamma   # momentum weight base
         self.decay_lambda = decay_lambda
 
-    def compute_reliability(self, tone_std, article_count):
+    def compute_reliability(self, tone_std, article_count, daily_sentiment_series=None):
         """
         Calculates the reliability of the sentiment signal.
         Reliability decreases as variance (std) increases and increases with volume.
+        Includes Temporal Stability Factor based on rolling variance of daily sentiment.
         """
         if article_count == 0 or pd.isna(tone_std) or pd.isna(article_count):
             return 0.0
@@ -26,7 +27,25 @@ class AdaptiveFusionEngine:
         stability = 1 / (1 + safe_std)
         # Volume factor is logarithmic to prevent over-weighting massive spikes
         volume_factor = np.log1p(float(article_count))
-        return float(stability * volume_factor)
+
+        # Temporal Stability Factor (rolling window N=7)
+        temporal_factor = 1.0
+        N = 7
+        if daily_sentiment_series is not None:
+            try:
+                arr = np.asarray(daily_sentiment_series, dtype=float)
+                arr = arr[~np.isnan(arr)]
+                if len(arr) >= 2:
+                    last_N = arr[-N:] if len(arr) >= N else arr
+                    var_t = np.var(last_N)
+                    var_t = max(0.0, float(var_t))
+                    temporal_factor = 1.0 / (1.0 + var_t)
+            except (TypeError, ValueError, ZeroDivisionError):
+                temporal_factor = 1.0
+
+        R_raw = stability * volume_factor * temporal_factor
+        R = R_raw / (1 + R_raw)
+        return float(R)
 
     def time_decay(self, days_since_event):
         """Temporal decay function for event relevance."""
@@ -40,7 +59,7 @@ class AdaptiveFusionEngine:
             return [1.0/len(values)] * len(values)
         return [v / total for v in values]
 
-    def fuse(self, avg_tone, structured_score, momentum, tone_std, article_count):
+    def fuse(self, avg_tone, structured_score, momentum, tone_std, article_count, daily_sentiment_series=None):
         """
         Perform the adaptive fusion of ESG factors.
         
@@ -50,12 +69,13 @@ class AdaptiveFusionEngine:
             momentum: Sentiment/Score delta over time
             tone_std: Standard deviation of tone (signal noise)
             article_count: Number of evidence signals
+            daily_sentiment_series: Optional series of daily sentiment values for temporal stability
             
         Returns:
             Dictionary with final score and dynamic weights used.
         """
         # 1. Compute Reliability Context
-        reliability = self.compute_reliability(tone_std, article_count)
+        reliability = self.compute_reliability(tone_std, article_count, daily_sentiment_series)
 
         # 2. Modulate Weights based on Reliability
         # If sentiment is low reliability (high std or low volume), its weight alpha decreases

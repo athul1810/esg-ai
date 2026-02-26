@@ -83,10 +83,12 @@ def build_company_context(company, df_company, df_market, data, start, end) -> d
         context["tone_best_value"] = tone_daily.max()
         context["tone_worst_date"] = tone_daily.idxmin()
         context["tone_worst_value"] = tone_daily.min()
+        context["daily_sentiment_series"] = tone_daily.values
     else:
         context["tone_early"] = context["tone_recent"] = context["tone_change"] = None
         context["tone_best_date"] = context["tone_worst_date"] = None
         context["tone_best_value"] = context["tone_worst_value"] = None
+        context["daily_sentiment_series"] = None
 
     positive_mask = df_company["PositiveTone"] > df_company["NegativeTone"]
     context["positive_share"] = positive_mask.mean() if len(df_company) else None
@@ -162,7 +164,8 @@ def build_company_context(company, df_company, df_market, data, start, end) -> d
         structured_score=float(structured_score),
         momentum=float(momentum),
         tone_std=context.get("tone_std", 0.0) or 0.0,
-        article_count=context.get("article_count", 0)
+        article_count=context.get("article_count", 0),
+        daily_sentiment_series=context.get("daily_sentiment_series", None)
     )
 
     context["final_esg_score"] = fusion_result["final_esg_score"]

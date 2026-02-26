@@ -94,27 +94,27 @@ def render_user_controls(user: Dict[str, str]) -> None:
         <div style="
             padding: 1.25rem;
             border-radius: 12px;
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             margin-bottom: 2rem;
             backdrop-filter: blur(8px);
         ">
             <div style="font-family: 'Inter', sans-serif;">
-                <div style="font-weight: 700; color: #ffffff; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                <div style="font-weight: 700; color: #cbd5e1; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">
                     Active Session
                 </div>
-                <div style="font-weight: 700; color: #ffffff; font-size: 1.1rem; margin: 0.25rem 0;">
+                <div style="font-weight: 700; color: #ffffff; font-size: 1.15rem; margin: 0.35rem 0;">
                     {user.get('username', 'Unknown')}
                 </div>
                 <div style="
                     display: inline-block;
-                    padding: 0.2rem 0.6rem;
+                    padding: 0.3rem 0.75rem;
                     border-radius: 6px;
-                    font-size: 0.65rem;
+                    font-size: 0.8rem;
                     font-weight: 800;
                     background: {color};
                     color: #ffffff;
-                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    border: 1px solid rgba(255, 255, 255, 0.35);
                     margin-top: 0.5rem;
                     text-transform: uppercase;
                 ">{role} access</div>

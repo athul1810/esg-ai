@@ -282,31 +282,36 @@ def inject_global_styles():
 				--brand-primary: #10b981; /* Emerald Green */
 				--brand-secondary: #3b82f6; /* Modern Blue */
 				--bg-deep: #020617; /* Slate 950 */
-				--card-bg: rgba(30, 41, 59, 0.75); /* Slate 800 with transparency */
-				--card-border: rgba(255, 255, 255, 0.15);
+				--card-bg: rgba(30, 41, 59, 0.92); /* Higher opacity for contrast */
+				--card-border: rgba(255, 255, 255, 0.28);
 				--text-strong: #ffffff;
-				--text-muted: #e2e8f0; /* Slate 200 for high contrast */
+				--text-muted: #cbd5e1; /* Brighter for readability */
 				--success: #10b981;
 				--error: #ef4444;
 				--warning: #f59e0b;
 			}
 
-			/* Global Typography Enforcement */
+			/* Global Typography - Minimum 14px base for readability */
 			* {
 				font-family: 'Inter', sans-serif !important;
-				color: #ffffff !important;
 			}
 			
 			span, p, label, div, h1, h2, h3, h4, section, input, button {
 				color: #ffffff !important;
 			}
 			
+			/* Base font size for body text */
+			.stMarkdown, .stMarkdown p {
+				font-size: 0.95rem !important;
+				line-height: 1.5 !important;
+			}
+			
 			/* Layout & Background */
 			.stApp {
 				background-color: var(--bg-deep) !important;
 				background-image: 
-					radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
-					radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%) !important;
+					radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+					radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%) !important;
 			}
 			
 			.main {
@@ -318,13 +323,31 @@ def inject_global_styles():
 				max-width: 1400px !important;
 			}
 
-			/* Sidebar - Modern Dark */
+			/* Sidebar - Stronger contrast */
 			section[data-testid="stSidebar"] {
-				background-color: #0f172a !important; /* Slate 900 */
+				background-color: #0f172a !important;
 				border-right: 1px solid var(--card-border) !important;
 			}
 			section[data-testid="stSidebar"] > div {
 				background: transparent !important;
+			}
+			section[data-testid="stSidebar"] .stMarkdown,
+			section[data-testid="stSidebar"] p,
+			section[data-testid="stSidebar"] label {
+				color: #e2e8f0 !important;
+				font-size: 0.95rem !important;
+				font-weight: 500 !important;
+			}
+			section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+				color: #cbd5e1 !important;
+				font-size: 0.9rem !important;
+				font-weight: 500 !important;
+			}
+			section[data-testid="stSidebar"] h1, 
+			section[data-testid="stSidebar"] h2, 
+			section[data-testid="stSidebar"] h3 {
+				color: #ffffff !important;
+				font-weight: 700 !important;
 			}
 
 			/* Premium Headers */
@@ -334,38 +357,47 @@ def inject_global_styles():
 				letter-spacing: -0.02em !important;
 			}
 
-			/* Metrics & Cards - Glassmorphism */
+			/* Metrics & Cards - Higher contrast, larger text */
 			.metric-card {
 				background: var(--card-bg) !important;
 				backdrop-filter: blur(12px) !important;
 				border: 1px solid var(--card-border) !important;
 				border-radius: 16px !important;
-				padding: 1.5rem !important;
-				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+				padding: 1.75rem !important;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
 			}
 			
 			.metric-card h4 {
-				color: #ffffff !important;
-				font-size: 0.8rem !important;
+				color: #e2e8f0 !important;
+				font-size: 0.95rem !important;
 				font-weight: 700 !important;
 				text-transform: uppercase !important;
-				letter-spacing: 0.05em !important;
-				margin-bottom: 0.5rem !important;
+				letter-spacing: 0.06em !important;
+				margin-bottom: 0.75rem !important;
 			}
 			
 			.metric-value { 
-				font-size: 2.5rem !important;
+				font-size: 2.75rem !important;
 				font-weight: 800 !important;
-				color: var(--text-strong) !important;
+				color: #ffffff !important;
 				letter-spacing: -0.03em !important;
+				text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
 			}
 
-			/* Sidebar Nav Links */
+			/* Sidebar Nav Links - Readable */
 			[data-testid="stSidebarNav"] ul {
 				padding-top: 1rem !important;
 			}
+			[data-testid="stSidebarNav"] a {
+				color: #e2e8f0 !important;
+				font-size: 0.95rem !important;
+				font-weight: 500 !important;
+			}
+			[data-testid="stSidebarNav"] a:hover {
+				color: #ffffff !important;
+			}
 
-			/* Modern Tabs */
+			/* Modern Tabs - Larger text */
 			.stTabs [role="tablist"] {
 				gap: 2rem !important;
 				border-bottom: 1px solid var(--card-border) !important;
@@ -375,34 +407,61 @@ def inject_global_styles():
 				padding: 1rem 0 !important;
 				background: transparent !important;
 				border: none !important;
-				color: #ffffff !important;
+				color: #e2e8f0 !important;
 				font-weight: 700 !important;
-				font-size: 0.95rem !important;
+				font-size: 1rem !important;
 			}
 			.stTabs [role="tab"][aria-selected="true"] {
 				color: var(--brand-secondary) !important;
 				border-bottom: 2px solid var(--brand-secondary) !important;
 			}
 
-			/* Inputs & Dropdowns */
+			/* Inputs & Dropdowns - Larger, readable */
 			div[data-baseweb="select"] > div, div[data-baseweb="input"] {
-				background-color: rgba(15, 23, 42, 0.8) !important;
+				background-color: rgba(15, 23, 42, 0.9) !important;
 				border: 1px solid var(--card-border) !important;
 				border-radius: 8px !important;
 			}
-			
+			div[data-baseweb="select"] span,
+			div[data-baseweb="input"] input {
+				color: #ffffff !important;
+				font-size: 0.95rem !important;
+			}
 			input {
-				color: white !important;
+				color: #ffffff !important;
+				font-size: 0.95rem !important;
+			}
+			/* Selectbox label */
+			div[data-testid="stSelectbox"] label {
+				color: #e2e8f0 !important;
+				font-size: 0.95rem !important;
 			}
 
-			/* Buttons */
+			/* Buttons - Higher visibility */
 			button[kind="primary"] {
 				background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
 				border: none !important;
+				color: #ffffff !important;
 				border-radius: 8px !important;
-				padding: 0.6rem 1.5rem !important;
+				padding: 0.65rem 1.5rem !important;
 				font-weight: 600 !important;
+				font-size: 0.9rem !important;
 				box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39) !important;
+			}
+			div[data-testid="stSidebar"] button {
+				color: #e2e8f0 !important;
+				font-size: 0.9rem !important;
+			}
+			div[data-testid="stSidebar"] button:hover {
+				color: #ffffff !important;
+			}
+
+			/* Multiselect & Slider labels */
+			div[data-testid="stMultiSelect"] label,
+			div[data-testid="stSlider"] label {
+				color: #e2e8f0 !important;
+				font-size: 0.95rem !important;
+				font-weight: 500 !important;
 			}
 
 			/* Dataframes */
@@ -412,14 +471,28 @@ def inject_global_styles():
 				overflow: hidden !important;
 			}
 
-			/* Custom Footer */
+			/* Custom Footer - Larger */
 			.app-footer {
 				text-align: center;
 				padding: 4rem 0 2rem;
-				color: #ffffff;
-				font-size: 0.8rem;
-				font-weight: 700;
-				letter-spacing: 0.05em;
+				color: #cbd5e1 !important;
+				font-size: 0.9rem !important;
+				font-weight: 600 !important;
+				letter-spacing: 0.05em !important;
+			}
+
+			/* Expanders, Radio, Tab content - readable */
+			.streamlit-expanderHeader p, .streamlit-expanderHeader span {
+				color: #e2e8f0 !important;
+				font-size: 0.95rem !important;
+			}
+			div[data-testid="stRadio"] label {
+				color: #e2e8f0 !important;
+				font-size: 0.95rem !important;
+			}
+			/* Alerts/Info boxes */
+			div[data-baseweb="notification"] {
+				font-size: 0.95rem !important;
 			}
 		</style>
 		""",
@@ -510,9 +583,9 @@ def render_metrics(summary, context=None):
         fusion_score = context.get("final_esg_score", 0)
         st.markdown(
             f"""
-            <div class="metric-card" style="border-top: 4px solid var(--brand-primary) !important;">
-                <h4 style="color: var(--brand-primary) !important;">Fusion ESG Index</h4>
-                <div class="metric-value">{fusion_score:,.2f}</div>
+			<div class="metric-card" style="border-top: 4px solid var(--brand-primary) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(16, 185, 129, 0.15) !important;">
+                <h4 style="color: #10b981 !important; font-size: 1rem !important;">Fusion ESG Index</h4>
+                <div class="metric-value" style="color: #ffffff !important;">{fusion_score:,.2f}</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -2256,15 +2329,16 @@ def inject_dark_theme():
 				--brand-primary: #00ff00;
 				--brand-secondary: #0076ff;
 				--text-strong: #ffffff;
-				--text-muted: #b0b0b0;
+				--text-muted: #cbd5e1;
 				--bg-soft: #0b0e11;
-				--card-bg: #151515;
-				--card-border: #333333;
+				--card-bg: rgba(30, 41, 59, 0.95);
+				--card-border: rgba(255, 255, 255, 0.25);
 			}
 			.main { background-color: var(--bg-soft) !important; }
-			section[data-testid="stSidebar"] > div { background: #101010 !important; }
-			.dataframe thead tr th { background: #222 !important; }
-			.dataframe tbody tr:hover { background: #1a1a1a !important; }
+			section[data-testid="stSidebar"] > div { background: #0f172a !important; }
+			.dataframe thead tr th { background: #1e293b !important; color: #e2e8f0 !important; font-weight: 600 !important; }
+			.dataframe tbody tr { color: #e2e8f0 !important; }
+			.dataframe tbody tr:hover { background: rgba(59, 130, 246, 0.1) !important; }
 		</style>
 		""",
 		unsafe_allow_html=True,
@@ -2296,7 +2370,7 @@ def main(start_data, end_data):
 					   layout='wide', initial_sidebar_state="expanded")
 	# Sidebar theme toggle
 	with st.sidebar:
-		st.markdown("APPEARANCE")
+		st.markdown("### APPEARANCE")
 		dark_mode = st.toggle("DARK TERMINAL MODE", value=True, help="Switch between performance modes")
 	inject_global_styles()
 	if 'dark_mode' not in st.session_state:
@@ -2321,9 +2395,9 @@ def main(start_data, end_data):
 		with col_copy:
 			st.markdown(
 				"""
-				<div style="background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%); padding: 2rem; border-radius: 16px; border-left: 4px solid var(--brand-secondary); margin-bottom: 3rem;">
-					<h1 style="margin: 0; font-size: 2.25rem; font-weight: 800; letter-spacing: -0.025em;">Intelligence Console</h1>
-					<p style="margin: 0.5rem 0 0; color: var(--text-muted); font-size: 1.1rem;">Advanced ESG Signal Decomposition & Narrative Modeling</p>
+				<div style="background: linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, transparent 100%); padding: 2rem; border-radius: 16px; border-left: 4px solid var(--brand-secondary); margin-bottom: 3rem; border: 1px solid rgba(255,255,255,0.12);">
+					<h1 style="margin: 0; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.025em; color: #ffffff;">Intelligence Console</h1>
+					<p style="margin: 0.75rem 0 0; color: #cbd5e1; font-size: 1.2rem; font-weight: 500; line-height: 1.4;">Advanced ESG Signal Decomposition & Narrative Modeling</p>
 				</div>
 				""",
 				unsafe_allow_html=True,
@@ -2416,8 +2490,8 @@ def main(start_data, end_data):
 
 		summary = build_company_summary(df_company)
 		st.markdown(
-			f"<div style='margin-bottom: 2rem;'><h3 style='margin: 0; font-size: 1.25rem; font-weight: 600;'>Narrative Analysis: {company}</h3>"
-			f"<p style='margin: 0.25rem 0 0; color: var(--text-muted); font-size: 0.9rem;'>{pd.to_datetime(start).strftime('%B %d, %Y')} — {pd.to_datetime(end).strftime('%B %d, %Y')}</p></div>",
+			f"<div style='margin-bottom: 2rem;'><h3 style='margin: 0; font-size: 1.5rem; font-weight: 700; color: #ffffff;'>Narrative Analysis: {company}</h3>"
+			f"<p style='margin: 0.5rem 0 0; color: #cbd5e1; font-size: 1rem; font-weight: 500;'>{pd.to_datetime(start).strftime('%B %d, %Y')} — {pd.to_datetime(end).strftime('%B %d, %Y')}</p></div>",
 			unsafe_allow_html=True,
 		)
 		analysis_context = build_company_context(
